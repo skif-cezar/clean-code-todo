@@ -2,7 +2,7 @@
 body {
     background-color: #f8f8f8;
     color: #333;
-    font-family: Lato, sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 .aaa {
     width: 500px;
@@ -50,7 +50,7 @@ button {
     color: #888;
     font-size: 15px;
     width: 60px;
-    font-family: Lato, sans-serif;
+    font-family: 'Lato', sans-serif;
     cursor: pointer;
 }
 button:hover {
@@ -76,7 +76,7 @@ input[type="text"] {
     border: 1px solid #dDd;
     background: #FFF;
     border-radius: 6px;
-    font-family: Lato, sans-serif;
+    font-family: 'Lato', sans-serif;
     color: #888;
 }
 input[type="text"]:focus {
@@ -129,7 +129,7 @@ button.delete img:hover {
 
 /* Completed */
 ul#completed-tasks label {
-    text-decoration: line-through
+    text-decoration: line-through;
     color: #888;
 }
 
