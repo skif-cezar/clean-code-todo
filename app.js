@@ -120,25 +120,41 @@ const taskIncomplete = changeTaskStatus(incompleteTaskHolder, (event) =>
   taskCompleted(event),
 );
 
-const ajaxRequest = function () {};
-addButton.onclick = addTask;
-addButton.addEventListener('click', addTask);
-addButton.addEventListener('click', ajaxRequest);
-
-const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
-  const checkBox = taskListItem.querySelector('input[type=checkbox]');
+// --- Event Binding ---
+const bindTaskEvents = (taskListItem, checkBoxEventHandler) => {
+  const checkBox = taskListItem.querySelector('.task-item__checkbox');
   const editButton = taskListItem.querySelector('.task-item__button--edit');
   const deleteButton = taskListItem.querySelector('.task-item__button--delete');
 
-  editButton.onclick = editTask;
-  deleteButton.onclick = deleteTask;
-  checkBox.onchange = checkBoxEventHandler;
+  // Clear out old listeners by cloning, in order to avoid leaks and duplication
+  editButton.replaceWith(editButton.cloneNode(true));
+  deleteButton.replaceWith(deleteButton.cloneNode(true));
+  checkBox.replaceWith(checkBox.cloneNode(true));
+
+  const freshEditButton = taskListItem.querySelector(
+    '.task-item__button--edit',
+  );
+  const freshDeleteButton = taskListItem.querySelector(
+    '.task-item__button--delete',
+  );
+  const freshCheckBox = taskListItem.querySelector('.task-item__checkbox');
+
+  freshEditButton.addEventListener('click', editTask);
+  freshDeleteButton.addEventListener('click', deleteTask);
+  freshCheckBox.addEventListener('change', checkBoxEventHandler);
 };
 
-for (let i = 0; i < incompleteTaskHolder.children.length; i++) {
-  bindTaskEvents(incompleteTaskHolder.children[i], taskCompleted);
-}
+// --- Initialization ---
+const initApp = () => {
+  addButton.addEventListener('click', addTask);
 
-for (let i = 0; i < completedTasksHolder.children.length; i++) {
-  bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
-}
+  Array.from(incompleteTaskHolder.children).forEach((item) => {
+    bindTaskEvents(item, taskCompleted);
+  });
+
+  Array.from(completedTasksHolder.children).forEach((item) => {
+    bindTaskEvents(item, taskIncomplete);
+  });
+};
+
+initApp();
