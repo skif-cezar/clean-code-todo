@@ -62,11 +62,15 @@ const createNewTaskElement = (taskString) => {
   return listItem;
 };
 
-const addTask = function () {
-  if (!taskInput.value) return;
-  const listItem = createNewTaskElement(taskInput.value);
+// --- Task Business Logic ---
+const addTask = (event) => {
+  event?.preventDefault();
+  const taskText = taskInput.value.trim();
+  if (!taskText) return;
 
-  incompleteTaskHolder.appendChild(listItem);
+  const listItem = createNewTaskElement(taskText);
+
+  incompleteTaskHolder.append(listItem);
   bindTaskEvents(listItem, taskCompleted);
 
   taskInput.value = '';
