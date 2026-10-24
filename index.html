@@ -8,8 +8,9 @@
       href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <header class="header">
       <img
@@ -29,7 +30,14 @@
       <form class="task-form" id="task-form" action="#" method="get">
         <label class="task-form__label" for="new-task">Add Item</label>
         <div class="task-form__wrapper">
-          <input id="new-task" class="task-form__input" type="text" />
+          <input
+            id="new-task"
+            class="task-form__input"
+            name="task"
+            type="text"
+            maxlength="200"
+            autocomplete="off"
+          />
           <button class="task-form__button" type="submit">Add</button>
         </div>
       </form>
