@@ -90,8 +90,8 @@ const toggleEditMode = (listItem, label, editInput, editButton) => {
   listItem.classList.toggle('task-item--edit');
 };
 
-const editTask = () => {
-  const listItem = this.closest('.task-item');
+const editTask = (event) => {
+  const listItem = event.currentTarget.closest('.task-item');
   const editInput = listItem.querySelector('.task-item__input');
   const label = listItem.querySelector('.task-item__label');
   const editBtn = listItem.querySelector('.task-item__button--edit');
@@ -99,10 +99,9 @@ const editTask = () => {
   toggleEditMode(listItem, label, editInput, editBtn);
 };
 
-const deleteTask = function () {
-  const listItem = this.parentNode;
-  const ul = listItem.parentNode;
-  ul.removeChild(listItem);
+const deleteTask = (event) => {
+  const listItem = event.currentTarget.closest('.task-item');
+  listItem.remove();
 };
 
 const taskCompleted = function () {
