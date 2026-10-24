@@ -76,21 +76,27 @@ const addTask = (event) => {
   taskInput.value = '';
 };
 
-const editTask = function () {
-  const listItem = this.parentNode;
+const toggleEditMode = (listItem, label, editInput, editButton) => {
+  const isEditing = listItem.classList.contains('task-item--edit');
 
-  const editInput = listItem.querySelector('input[type=text]');
-  const label = listItem.querySelector('label');
-  const editBtn = listItem.querySelector('.task-item__button--edit');
-  const containsClass = listItem.classList.contains('task-item--edit');
-  if (containsClass) {
-    label.innerText = editInput.value;
-    editBtn.innerText = 'Edit';
+  if (isEditing) {
+    label.textContent = editInput.value;
+    editButton.textContent = 'Edit';
   } else {
-    editInput.value = label.innerText;
-    editBtn.innerText = 'Save';
+    editInput.value = label.textContent;
+    editButton.textContent = 'Save';
   }
-  listItem.classList.toggle('task-item task-item--edit');
+
+  listItem.classList.toggle('task-item--edit');
+};
+
+const editTask = () => {
+  const listItem = this.closest('.task-item');
+  const editInput = listItem.querySelector('.task-item__input');
+  const label = listItem.querySelector('.task-item__label');
+  const editBtn = listItem.querySelector('.task-item__button--edit');
+
+  toggleEditMode(listItem, label, editInput, editBtn);
 };
 
 const deleteTask = function () {
