@@ -104,17 +104,21 @@ const deleteTask = (event) => {
   listItem.remove();
 };
 
-const taskCompleted = function () {
-  const listItem = this.parentNode;
-  completedTasksHolder.appendChild(listItem);
-  bindTaskEvents(listItem, taskIncomplete);
+const changeTaskStatus = (targetHolder, eventHandler) => {
+  return (event) => {
+    const listItem = event.currentTarget.closest('.task-item');
+
+    targetHolder.append(listItem);
+    bindTaskEvents(listItem, eventHandler);
+  };
 };
 
-const taskIncomplete = function () {
-  const listItem = this.parentNode;
-  incompleteTaskHolder.appendChild(listItem);
-  bindTaskEvents(listItem, taskCompleted);
-};
+const taskCompleted = changeTaskStatus(completedTasksHolder, (event) =>
+  taskIncomplete(event),
+);
+const taskIncomplete = changeTaskStatus(incompleteTaskHolder, (event) =>
+  taskCompleted(event),
+);
 
 const ajaxRequest = function () {};
 addButton.onclick = addTask;
